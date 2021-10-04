@@ -2,15 +2,15 @@
 
 using System;
 using System.Collections.Generic;
-using Appalachia.Core.Editing.AssetDB;
-using Appalachia.Core.Editing.Attributes;
+using Appalachia.Editing.Assets;
+using Appalachia.Editing.Attributes;
 using Sirenix.OdinInspector;
 using Unity.Profiling;
 using UnityEngine;
 
 #endregion
 
-namespace Appalachia.Core.Scriptables
+namespace Appalachia.Base.Scriptables
 {
     [Serializable]
     public abstract class SelfSavingAndIdentifyingScriptableObject<T> : SelfSavingScriptableObject<T>,

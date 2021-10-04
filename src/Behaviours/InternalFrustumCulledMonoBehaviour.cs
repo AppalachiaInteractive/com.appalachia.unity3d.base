@@ -1,6 +1,6 @@
 using Unity.Profiling;
 
-namespace Appalachia.Core.Behaviours
+namespace Appalachia.Base.Behaviours
 {
     public class InternalFrustumCulledMonoBehaviour<T>: InternalMonoBehaviour
         where T : InternalFrustumCulledMonoBehaviour<T>

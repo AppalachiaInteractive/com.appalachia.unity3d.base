@@ -1,4 +1,4 @@
-namespace Appalachia.Core.Scriptables
+namespace Appalachia.Base.Scriptables
 {
     public interface ISingletonScriptableObject
     {

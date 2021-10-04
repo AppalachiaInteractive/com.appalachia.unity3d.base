@@ -1,9 +1,9 @@
 using System;
-using Appalachia.Core.Editing.Attributes;
+using Appalachia.Editing.Attributes;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace Appalachia.Core.Scriptables
+namespace Appalachia.Base.Scriptables
 {
     [Serializable]
     public abstract class SelfCategorizingAndSavingScriptableObject<T> : SelfSavingScriptableObject<T>, ICategorizable

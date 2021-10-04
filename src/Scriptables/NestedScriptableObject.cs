@@ -7,7 +7,7 @@ using UnityEditor;
 
 #endregion
 
-namespace Appalachia.Core.Scriptables
+namespace Appalachia.Base.Scriptables
 {
     public abstract class NestedScriptableObject<T, TP> : InternalScriptableObject<T>
         where T : NestedScriptableObject<T, TP>

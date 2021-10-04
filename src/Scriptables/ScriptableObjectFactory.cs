@@ -4,7 +4,7 @@ using Unity.Profiling;
 using UnityEditor;
 using UnityEngine;
 
-namespace Appalachia.Core.Scriptables
+namespace Appalachia.Base.Scriptables
 {
     public static class ScriptableObjectFactory
     {

@@ -1,12 +1,12 @@
 #region
 
-using Appalachia.Core.Globals.Shading;
+using Appalachia.Globals.Shading;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
 #endregion
 
-namespace Appalachia.Core.Behaviours
+namespace Appalachia.Base.Behaviours
 {
     public abstract class InternalInstancedMonoBehaviour : InternalMonoBehaviour
     {

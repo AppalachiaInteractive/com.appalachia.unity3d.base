@@ -8,7 +8,7 @@ using UnityEngine;
 
 #endregion
 
-namespace Appalachia.Core.Behaviours
+namespace Appalachia.Base.Behaviours
 {
     public abstract class SingletonMonoBehaviour<T> : InternalMonoBehaviour
         where T : SingletonMonoBehaviour<T>

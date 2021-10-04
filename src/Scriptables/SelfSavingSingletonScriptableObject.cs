@@ -13,7 +13,7 @@ using UnityEngine;
 
 #endregion
 
-namespace Appalachia.Core.Scriptables
+namespace Appalachia.Base.Scriptables
 {
     [Serializable]
     public abstract class SelfSavingSingletonScriptableObject<T> : SelfSavingScriptableObject<T>,

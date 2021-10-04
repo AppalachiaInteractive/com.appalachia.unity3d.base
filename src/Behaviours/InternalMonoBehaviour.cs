@@ -2,7 +2,7 @@
 
 using System;
 using System.Linq;
-using Appalachia.Core.Editing.Framing;
+using Appalachia.Core.Scene.Framing;
 using Sirenix.OdinInspector;
 using Unity.Mathematics;
 using UnityEditor;
@@ -12,7 +12,7 @@ using Object = UnityEngine.Object;
 
 #endregion
 
-namespace Appalachia.Core.Behaviours
+namespace Appalachia.Base.Behaviours
 {
     [Serializable]
     public class InternalMonoBehaviour : MonoBehaviour

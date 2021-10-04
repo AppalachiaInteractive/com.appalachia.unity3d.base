@@ -4,7 +4,7 @@ using UnityEngine;
 
 #endregion
 
-namespace Appalachia.Core.Scriptables
+namespace Appalachia.Base.Scriptables
 {
     public interface ICrossAssemblySerializable
     {

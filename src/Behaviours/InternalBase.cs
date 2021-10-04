@@ -4,7 +4,7 @@ using System;
 
 #endregion
 
-namespace Appalachia.Core.Behaviours
+namespace Appalachia.Base.Behaviours
 {
     [Serializable]
     public abstract class InternalBase<T>

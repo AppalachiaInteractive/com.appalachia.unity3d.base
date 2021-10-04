@@ -10,7 +10,7 @@ using UnityEngine;
 
 #endif
 
-namespace Appalachia.Core.Scriptables
+namespace Appalachia.Base.Scriptables
 {
     [Serializable]
     public abstract class EmbeddedScriptableObject<T> : InternalScriptableObject<T>

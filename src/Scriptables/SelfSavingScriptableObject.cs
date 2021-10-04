@@ -5,7 +5,7 @@ using Unity.Profiling;
 
 #endregion
 
-namespace Appalachia.Core.Scriptables
+namespace Appalachia.Base.Scriptables
 {
     [Serializable]
     public abstract class SelfSavingScriptableObject<T> : InternalScriptableObject<T>

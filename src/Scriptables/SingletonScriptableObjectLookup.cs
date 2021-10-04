@@ -5,12 +5,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Appalachia.Core.Attributes;
-using Appalachia.Core.Collections.Extensions;
+using Appalachia.Core.Extensions;
 using Sirenix.OdinInspector;
 using Unity.Profiling;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
+
 #if ODIN_INSPECTOR
 
 #endif
@@ -21,7 +22,7 @@ using UnityEngine;
 
 #endif
 
-namespace Appalachia.Core.Scriptables
+namespace Appalachia.Base.Scriptables
 {
     [Critical]
     [Serializable]

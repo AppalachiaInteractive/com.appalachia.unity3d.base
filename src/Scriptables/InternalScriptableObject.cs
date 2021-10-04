@@ -3,7 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using Appalachia.Core.Editing.AssetDB;
+using Appalachia.Editing.Assets;
 using Sirenix.OdinInspector;
 using Unity.Profiling;
 using UnityEditor;
@@ -16,7 +16,7 @@ using Object = UnityEngine.Object;
 
 #endif
 
-namespace Appalachia.Core.Scriptables
+namespace Appalachia.Base.Scriptables
 {
     
     public abstract class InternalScriptableObject<T> : ScriptableObject /*, IResponsive*/

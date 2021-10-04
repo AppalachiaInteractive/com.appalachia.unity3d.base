@@ -2,12 +2,12 @@
 
 using System;
 using System.Collections.Generic;
-using Appalachia.Core.Editing.Attributes;
+using Appalachia.Editing.Attributes;
 using Sirenix.OdinInspector;
 
 #endregion
 
-namespace Appalachia.Core.Scriptables
+namespace Appalachia.Base.Scriptables
 {
     [Serializable]
     public abstract class SelfNamingSavingAndIdentifyingScriptableObject<T> : SelfSavingAndIdentifyingScriptableObject<T>,

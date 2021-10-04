@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Appalachia.Core.Behaviours
+namespace Appalachia.Base.Behaviours
 {
     public class MasterObjectReference : SingletonMonoBehaviour<MasterObjectReference>
     {

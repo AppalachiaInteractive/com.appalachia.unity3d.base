@@ -1,12 +1,12 @@
 using System;
 using Appalachia.Core.Collections;
 using Appalachia.Core.Collections.Interfaces;
-using Appalachia.Core.Editing.AssetDB;
+using Appalachia.Editing.Assets;
 using Sirenix.OdinInspector;
 using Unity.Profiling;
 using UnityEngine;
 
-namespace Appalachia.Core.Scriptables
+namespace Appalachia.Base.Scriptables
 {
     [Serializable]
     public abstract class ScriptableObjectLookupCollection<T, TI, TKey, TValue, TKeyList, TValueList> : SelfSavingSingletonScriptableObject<T>
