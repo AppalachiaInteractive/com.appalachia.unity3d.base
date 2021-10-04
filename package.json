@@ -1,7 +1,7 @@
 {
   "name": "com.appalachia.unity3d.base",
   "displayName": "Appalachia.Base for Unity3D",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "unity": "2020.3",
   "description": "Base classes for scriptable objects and mono behaviours with a variety of additional functionality available.",
   "keywords": [
