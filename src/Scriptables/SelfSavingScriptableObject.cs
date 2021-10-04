@@ -13,9 +13,12 @@ namespace Appalachia.Base.Scriptables
     {
 #if UNITY_EDITOR
         private const string _PRF_PFX = nameof(SelfSavingScriptableObject<T>) + ".";
-        private static readonly ProfilerMarker _PRF_CreateNew = new ProfilerMarker(_PRF_PFX + nameof(CreateNew));
-        private static readonly ProfilerMarker _PRF_LoadOrCreateNew = new ProfilerMarker(_PRF_PFX + nameof(LoadOrCreateNew));
-        private static readonly ProfilerMarker _PRF_Rename = new ProfilerMarker(_PRF_PFX + nameof(Rename));
+        private static readonly ProfilerMarker _PRF_CreateNew = new(_PRF_PFX + nameof(CreateNew));
+
+        private static readonly ProfilerMarker _PRF_LoadOrCreateNew =
+            new(_PRF_PFX + nameof(LoadOrCreateNew));
+
+        private static readonly ProfilerMarker _PRF_Rename = new(_PRF_PFX + nameof(Rename));
 
         public static T CreateNew()
         {
@@ -33,11 +36,20 @@ namespace Appalachia.Base.Scriptables
             }
         }
 
-        public static T LoadOrCreateNew(string name, bool typeFolder, bool prependType, bool appendType)
+        public static T LoadOrCreateNew(
+            string name,
+            bool typeFolder,
+            bool prependType,
+            bool appendType)
         {
             using (_PRF_LoadOrCreateNew.Auto())
             {
-                return ScriptableObjectFactory.LoadOrCreateNew<T>(name, typeFolder, prependType, appendType);
+                return ScriptableObjectFactory.LoadOrCreateNew<T>(
+                    name,
+                    typeFolder,
+                    prependType,
+                    appendType
+                );
             }
         }
 

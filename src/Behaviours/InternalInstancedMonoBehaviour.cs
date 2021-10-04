@@ -10,19 +10,22 @@ namespace Appalachia.Base.Behaviours
 {
     public abstract class InternalInstancedMonoBehaviour : InternalMonoBehaviour
     {
-        protected bool checkedForRenderers;
-
-        [SerializeField, HideInInspector]
+        [SerializeField]
+        [HideInInspector]
         private MeshRenderer[] _meshRenderers;
 
-        [SerializeField, HideInInspector]
+        [SerializeField]
+        [HideInInspector]
         private MaterialPropertyBlock[] _materialPropertyBlocks;
+
+        protected bool checkedForRenderers;
 
         protected MeshRenderer[] meshRenderers
         {
             get
             {
-                if ((_meshRenderers == null) || ((_meshRenderers.Length == 0) && !checkedForRenderers))
+                if ((_meshRenderers == null) ||
+                    ((_meshRenderers.Length == 0) && !checkedForRenderers))
                 {
                     _meshRenderers = GetComponentsInChildren<MeshRenderer>();
                     checkedForRenderers = true;
@@ -38,7 +41,9 @@ namespace Appalachia.Base.Behaviours
             {
                 var mr = meshRenderers;
 
-                if ((mr != null) && ((_materialPropertyBlocks == null) || (_materialPropertyBlocks.Length != meshRenderers.Length)))
+                if ((mr != null) &&
+                    ((_materialPropertyBlocks == null) ||
+                     (_materialPropertyBlocks.Length != meshRenderers.Length)))
                 {
                     _materialPropertyBlocks = new MaterialPropertyBlock[meshRenderers.Length];
 
@@ -95,7 +100,6 @@ namespace Appalachia.Base.Behaviours
                 _materialPropertyBlocks = null;
             }
         }
-
 
         protected abstract void UpdateInstancedProperties(MaterialPropertyBlock block, Material m);
     }

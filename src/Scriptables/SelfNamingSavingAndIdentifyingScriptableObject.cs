@@ -10,15 +10,27 @@ using Sirenix.OdinInspector;
 namespace Appalachia.Base.Scriptables
 {
     [Serializable]
-    public abstract class SelfNamingSavingAndIdentifyingScriptableObject<T> : SelfSavingAndIdentifyingScriptableObject<T>,
-                                                                              IComparable<SelfNamingSavingAndIdentifyingScriptableObject<T>>,
-                                                                              IComparable
+    public abstract class SelfNamingSavingAndIdentifyingScriptableObject<T> :
+        SelfSavingAndIdentifyingScriptableObject<T>,
+        IComparable<SelfNamingSavingAndIdentifyingScriptableObject<T>>,
+        IComparable
         where T : SelfNamingSavingAndIdentifyingScriptableObject<T>
     {
         [FoldoutGroup("Metadata")]
         [OnValueChanged(nameof(UpdateName))]
-        [DelayedProperty, PropertyOrder(-1000), SmartLabel]
+        [DelayedProperty]
+        [PropertyOrder(-1000)]
+        [SmartLabel]
         public string profileName;
+
+        protected virtual void OnEnable()
+        {
+            if (string.IsNullOrWhiteSpace(profileName))
+            {
+                profileName = name;
+                UpdateName();
+            }
+        }
 
         int IComparable.CompareTo(object obj)
         {
@@ -34,7 +46,9 @@ namespace Appalachia.Base.Scriptables
 
             return obj is SelfNamingSavingAndIdentifyingScriptableObject<T> other
                 ? CompareTo(other)
-                : throw new ArgumentException($"Object must be of type {nameof(SelfNamingSavingAndIdentifyingScriptableObject<T>)}");
+                : throw new ArgumentException(
+                    $"Object must be of type {nameof(SelfNamingSavingAndIdentifyingScriptableObject<T>)}"
+                );
         }
 
         public int CompareTo(SelfNamingSavingAndIdentifyingScriptableObject<T> other)
@@ -68,15 +82,6 @@ namespace Appalachia.Base.Scriptables
             }
         }
 
-        protected virtual void OnEnable()
-        {
-            if (string.IsNullOrWhiteSpace(profileName))
-            {
-                profileName = name;
-                UpdateName();
-            }
-        }
-
         protected override void OnUpateAllIDs()
         {
             if (string.IsNullOrWhiteSpace(profileName))
@@ -85,28 +90,48 @@ namespace Appalachia.Base.Scriptables
             }
         }
 
-        public static bool operator <(SelfNamingSavingAndIdentifyingScriptableObject<T> left, SelfNamingSavingAndIdentifyingScriptableObject<T> right)
+        public static bool operator <(
+            SelfNamingSavingAndIdentifyingScriptableObject<T> left,
+            SelfNamingSavingAndIdentifyingScriptableObject<T> right)
         {
-            return Comparer<SelfNamingSavingAndIdentifyingScriptableObject<T>>.Default.Compare(left, right) < 0;
+            return Comparer<SelfNamingSavingAndIdentifyingScriptableObject<T>>.Default.Compare(
+                       left,
+                       right
+                   ) <
+                   0;
         }
 
-        public static bool operator >(SelfNamingSavingAndIdentifyingScriptableObject<T> left, SelfNamingSavingAndIdentifyingScriptableObject<T> right)
+        public static bool operator >(
+            SelfNamingSavingAndIdentifyingScriptableObject<T> left,
+            SelfNamingSavingAndIdentifyingScriptableObject<T> right)
         {
-            return Comparer<SelfNamingSavingAndIdentifyingScriptableObject<T>>.Default.Compare(left, right) > 0;
+            return Comparer<SelfNamingSavingAndIdentifyingScriptableObject<T>>.Default.Compare(
+                       left,
+                       right
+                   ) >
+                   0;
         }
 
         public static bool operator <=(
             SelfNamingSavingAndIdentifyingScriptableObject<T> left,
             SelfNamingSavingAndIdentifyingScriptableObject<T> right)
         {
-            return Comparer<SelfNamingSavingAndIdentifyingScriptableObject<T>>.Default.Compare(left, right) <= 0;
+            return Comparer<SelfNamingSavingAndIdentifyingScriptableObject<T>>.Default.Compare(
+                       left,
+                       right
+                   ) <=
+                   0;
         }
 
         public static bool operator >=(
             SelfNamingSavingAndIdentifyingScriptableObject<T> left,
             SelfNamingSavingAndIdentifyingScriptableObject<T> right)
         {
-            return Comparer<SelfNamingSavingAndIdentifyingScriptableObject<T>>.Default.Compare(left, right) >= 0;
+            return Comparer<SelfNamingSavingAndIdentifyingScriptableObject<T>>.Default.Compare(
+                       left,
+                       right
+                   ) >=
+                   0;
         }
     }
 }

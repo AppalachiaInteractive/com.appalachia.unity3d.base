@@ -17,9 +17,8 @@ namespace Appalachia.Base.Behaviours
     [Serializable]
     public class InternalMonoBehaviour : MonoBehaviour
     {
-        private Transform ___transform;
-
         private Bounds ___renderingBounds;
+        private Transform ___transform;
 
         protected Transform _transform
         {
@@ -89,7 +88,9 @@ namespace Appalachia.Base.Behaviours
             EditorSceneManager.MarkSceneDirty(gameObject.scene);
         }
 
-        [Button(ButtonSizes.Small), HorizontalGroup("base_A"), PropertyOrder(-1000)]
+        [Button(ButtonSizes.Small)]
+        [HorizontalGroup("base_A")]
+        [PropertyOrder(-1000)]
         private void SelectAllInScene()
         {
             var type = GetType();
@@ -99,7 +100,9 @@ namespace Appalachia.Base.Behaviours
             Selection.objects = instances;
         }
 
-        [Button(ButtonSizes.Small), HorizontalGroup("base_A"), PropertyOrder(-1000)]
+        [Button(ButtonSizes.Small)]
+        [HorizontalGroup("base_A")]
+        [PropertyOrder(-1000)]
         private void SelectObjectsInScene()
         {
             var type = GetType();
@@ -129,7 +132,7 @@ namespace Appalachia.Base.Behaviours
                 RecalculateBounds();
 
                 var filters = GetComponentsInChildren<MeshFilter>();
-                
+
                 for (var i = 0; i < filters.Length; i++)
                 {
                     var mf = filters[i];

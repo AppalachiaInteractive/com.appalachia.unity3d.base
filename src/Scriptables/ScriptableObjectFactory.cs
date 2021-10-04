@@ -9,15 +9,24 @@ namespace Appalachia.Base.Scriptables
     public static class ScriptableObjectFactory
     {
         private const string _PRF_PFX = nameof(ScriptableObjectFactory) + ".";
-        private static readonly ProfilerMarker _PRF_CreateNew = new ProfilerMarker(_PRF_PFX + nameof(CreateNew));
-        private static readonly ProfilerMarker _PRF_LoadOrCreateNew = new ProfilerMarker(_PRF_PFX + nameof(LoadOrCreateNew));
+        private static readonly ProfilerMarker _PRF_CreateNew = new(_PRF_PFX + nameof(CreateNew));
+
+        private static readonly ProfilerMarker _PRF_LoadOrCreateNew =
+            new(_PRF_PFX + nameof(LoadOrCreateNew));
+
+        private static readonly ProfilerMarker _PRF_Rename = new(_PRF_PFX + nameof(Rename));
 
         public static T CreateNew<T>()
             where T : InternalScriptableObject<T>
         {
             using (_PRF_CreateNew.Auto())
             {
-                return LoadOrCreateNew<T>($"{typeof(T).Name}_{DateTime.Now:yyyyMMdd-hhmmssfff}.asset", true, false, false);
+                return LoadOrCreateNew<T>(
+                    $"{typeof(T).Name}_{DateTime.Now:yyyyMMdd-hhmmssfff}.asset",
+                    true,
+                    false,
+                    false
+                );
             }
         }
 
@@ -30,7 +39,11 @@ namespace Appalachia.Base.Scriptables
             }
         }
 
-        public static T LoadOrCreateNew<T>(string name, bool typeFolder, bool prependType, bool appendType)
+        public static T LoadOrCreateNew<T>(
+            string name,
+            bool typeFolder,
+            bool prependType,
+            bool appendType)
             where T : InternalScriptableObject<T>
         {
             using (_PRF_LoadOrCreateNew.Auto())
@@ -76,7 +89,8 @@ namespace Appalachia.Base.Scriptables
                     var path = AssetDatabase.GUIDToAssetPath(any[i]);
                     var existingName = Path.GetFileNameWithoutExtension(path);
 
-                    if (existingName != null && string.Equals(cleanFileName.ToLower(), existingName.ToLower()))
+                    if ((existingName != null) &&
+                        string.Equals(cleanFileName.ToLower(), existingName.ToLower()))
                     {
                         return AssetDatabase.LoadAssetAtPath<T>(path);
                     }
@@ -98,7 +112,7 @@ namespace Appalachia.Base.Scriptables
                     Directory.CreateDirectory(dataFolder);
                 }
 
-                return CreateNew<T>(dataFolder, name, instance);
+                return CreateNew(dataFolder, name, instance);
             }
         }
 
@@ -109,7 +123,7 @@ namespace Appalachia.Base.Scriptables
             {
                 var i = ScriptableObject.CreateInstance(typeof(T)) as T;
 
-                return CreateNew<T>(folder, name, i);
+                return CreateNew(folder, name, i);
             }
         }
 
@@ -162,7 +176,8 @@ namespace Appalachia.Base.Scriptables
                 }
 
                 extension = Path.GetExtension(assetName);
-                var nameWithoutExtension = Path.GetFileNameWithoutExtension(assetName).TrimEnd('.', '-', '_', ',');
+                var nameWithoutExtension = Path.GetFileNameWithoutExtension(assetName)
+                                               .TrimEnd('.', '-', '_', ',');
                 var assetFileName = $"{nameWithoutExtension}{extension}";
 
                 var assetPath = Path.Combine(folder, assetFileName);
@@ -189,7 +204,6 @@ namespace Appalachia.Base.Scriptables
             }
         }
 
-        private static readonly ProfilerMarker _PRF_Rename = new ProfilerMarker(_PRF_PFX + nameof(Rename));
         public static void Rename<T>(T instance, string newName)
             where T : InternalScriptableObject<T>
         {

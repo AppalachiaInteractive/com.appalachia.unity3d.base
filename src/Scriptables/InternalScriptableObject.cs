@@ -18,17 +18,22 @@ using Object = UnityEngine.Object;
 
 namespace Appalachia.Base.Scriptables
 {
-    
     public abstract class InternalScriptableObject<T> : ScriptableObject /*, IResponsive*/
         where T : InternalScriptableObject<T>
     {
         private const string _PRF_PFX = nameof(InternalScriptableObject<T>) + ".";
+
+        private static readonly ProfilerMarker _PRF_SetDirty = new(_PRF_PFX + nameof(SetDirty));
+
+        private static readonly ProfilerMarker _PRF_SetDirtyAndSave =
+            new(_PRF_PFX + nameof(SetDirtyAndSave));
+
         //private static AspectSets _aspects;
 
+        [SerializeField]
+        [HideInInspector]
+        private string _niceName;
 
-        [SerializeField, HideInInspector] private string _niceName;
-
-        private static readonly ProfilerMarker _PRF_SetDirty = new ProfilerMarker(_PRF_PFX + nameof(SetDirty));
         public new void SetDirty()
         {
             using (_PRF_SetDirty.Auto())
@@ -38,8 +43,6 @@ namespace Appalachia.Base.Scriptables
 #endif
             }
         }
-
-        private static readonly ProfilerMarker _PRF_SetDirtyAndSave = new ProfilerMarker(_PRF_PFX + nameof(SetDirtyAndSave));
 
         public void SetDirtyAndSave()
         {
@@ -57,25 +60,28 @@ namespace Appalachia.Base.Scriptables
 
 #if UNITY_EDITOR
 
-        [SerializeField, HideInInspector] private string _cachedName;
-        
+        [SerializeField]
+        [HideInInspector]
+        private string _cachedName;
+
         public string NiceName
         {
             get
             {
-                if (_niceName == null || name != _cachedName)
+                if ((_niceName == null) || (name != _cachedName))
                 {
                     _cachedName = name;
                     _niceName = ObjectNames.NicifyVariableName(name);
                     SetDirty();
                 }
-                
+
                 return _niceName;
             }
             set => _niceName = value;
         }
 
-        private static readonly ProfilerMarker _PRF_Ping = new ProfilerMarker(_PRF_PFX + nameof(Ping));
+        private static readonly ProfilerMarker _PRF_Ping = new(_PRF_PFX + nameof(Ping));
+
         public void Ping()
         {
             using (_PRF_Ping.Auto())
@@ -84,11 +90,14 @@ namespace Appalachia.Base.Scriptables
             }
         }
 
-        private static readonly ProfilerMarker _PRF_Select = new ProfilerMarker(_PRF_PFX + nameof(Select));
+        private static readonly ProfilerMarker _PRF_Select = new(_PRF_PFX + nameof(Select));
+
         [ShowIfGroup("$ShowWorkflow")]
         [FoldoutGroup("$ShowWorkflow/Workflow", Order = -50000)]
         [HorizontalGroup("$ShowWorkflow/Workflow/Productivity")]
-        [Button, PropertyOrder(-40000), ShowIf(nameof(ShowWorkflow))]
+        [Button]
+        [PropertyOrder(-40000)]
+        [ShowIf(nameof(ShowWorkflow))]
         public void Select()
         {
             using (_PRF_Select.Auto())
@@ -98,9 +107,12 @@ namespace Appalachia.Base.Scriptables
             }
         }
 
-        private static readonly ProfilerMarker _PRF_Duplicate = new ProfilerMarker(_PRF_PFX + nameof(Duplicate));
+        private static readonly ProfilerMarker _PRF_Duplicate = new(_PRF_PFX + nameof(Duplicate));
+
         [HorizontalGroup("$ShowWorkflow/Workflow/Productivity")]
-        [Button, PropertyOrder(-40000), ShowIf(nameof(ShowWorkflow))]
+        [Button]
+        [PropertyOrder(-40000)]
+        [ShowIf(nameof(ShowWorkflow))]
         public void Duplicate()
         {
             using (_PRF_Duplicate.Auto())
@@ -112,7 +124,8 @@ namespace Appalachia.Base.Scriptables
             }
         }
 
-        private static readonly ProfilerMarker _PRF_AssetPath = new ProfilerMarker(_PRF_PFX + nameof(AssetPath));
+        private static readonly ProfilerMarker _PRF_AssetPath = new(_PRF_PFX + nameof(AssetPath));
+
         public string AssetPath
         {
             get
@@ -124,7 +137,9 @@ namespace Appalachia.Base.Scriptables
             }
         }
 
-        private static readonly ProfilerMarker _PRF_DirectoryPath = new ProfilerMarker(_PRF_PFX + nameof(DirectoryPath));
+        private static readonly ProfilerMarker _PRF_DirectoryPath =
+            new(_PRF_PFX + nameof(DirectoryPath));
+
         public string DirectoryPath
         {
             get
@@ -136,7 +151,9 @@ namespace Appalachia.Base.Scriptables
             }
         }
 
-        private static readonly ProfilerMarker _PRF_HasAssetPath = new ProfilerMarker(_PRF_PFX + nameof(HasAssetPath));
+        private static readonly ProfilerMarker _PRF_HasAssetPath =
+            new(_PRF_PFX + nameof(HasAssetPath));
+
         public bool HasAssetPath(out string path)
         {
             using (_PRF_HasAssetPath.Auto())
@@ -152,7 +169,9 @@ namespace Appalachia.Base.Scriptables
             }
         }
 
-        private static readonly ProfilerMarker _PRF_HasSubAssets = new ProfilerMarker(_PRF_PFX + nameof(HasSubAssets));
+        private static readonly ProfilerMarker _PRF_HasSubAssets =
+            new(_PRF_PFX + nameof(HasSubAssets));
+
         public bool HasSubAssets(out Object[] subAssets)
         {
             using (_PRF_HasSubAssets.Auto())
@@ -175,7 +194,9 @@ namespace Appalachia.Base.Scriptables
             }
         }
 
-        private static readonly ProfilerMarker _PRF_UpdateNameAndMove = new ProfilerMarker(_PRF_PFX + nameof(UpdateNameAndMove));
+        private static readonly ProfilerMarker _PRF_UpdateNameAndMove =
+            new(_PRF_PFX + nameof(UpdateNameAndMove));
+
         public bool UpdateNameAndMove(string newName)
         {
             using (_PRF_UpdateNameAndMove.Auto())
@@ -195,7 +216,8 @@ namespace Appalachia.Base.Scriptables
                     newPath_extension = ".asset";
                 }
 
-                var finalPath = Path.Combine(basePath, $"{newPath_name}{newPath_extension}").Replace("\\", "/");
+                var finalPath = Path.Combine(basePath, $"{newPath_name}{newPath_extension}")
+                                    .Replace("\\", "/");
 
                 name = newPath_name;
 
@@ -221,10 +243,11 @@ namespace Appalachia.Base.Scriptables
 
         internal virtual void OnCreate()
         {
-        }     
+        }
 
-        private static readonly ProfilerMarker _PRF_GetAllOfType = new ProfilerMarker(_PRF_PFX + nameof(GetAllOfType));
-        
+        private static readonly ProfilerMarker _PRF_GetAllOfType =
+            new(_PRF_PFX + nameof(GetAllOfType));
+
         public static T[] GetAllOfType()
         {
             using (_PRF_GetAllOfType.Auto())
@@ -243,7 +266,7 @@ namespace Appalachia.Base.Scriptables
                 return results;
             }
         }
-        
+
         public static List<T> GetAllOfType(Predicate<T> where)
         {
             using (_PRF_GetAllOfType.Auto())

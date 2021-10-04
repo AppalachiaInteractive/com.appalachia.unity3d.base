@@ -14,8 +14,10 @@ namespace Appalachia.Base.Behaviours
         where T : SingletonMonoBehaviour<T>
     {
         private const string _PRF_PFX = nameof(SingletonMonoBehaviour<T>) + ".";
-        
+
         private static T __instance;
+
+        private static readonly ProfilerMarker _PRF_Awake = new(_PRF_PFX + nameof(Awake));
 
         private static T _instance
         {
@@ -38,8 +40,6 @@ namespace Appalachia.Base.Behaviours
 
         public static T instance => _instance;
 
-        private static readonly ProfilerMarker _PRF_Awake = new ProfilerMarker(_PRF_PFX + nameof(Awake));
-        
         private void Awake()
         {
             using (_PRF_Awake.Auto())
